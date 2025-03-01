@@ -7,11 +7,11 @@ from datekeeper.settings import Settings
 
 def create_fastapi_app(settings: Settings) -> FastAPI:
     app = FastAPI()
-    register_routers(app)
+    register_routers(app, settings)
 
     return app
 
 
-def register_routers(app: FastAPI) -> None:
+def register_routers(app: FastAPI, settings: Settings):
     app.include_router(debug.router)
-    app.include_router(webhook.router)
+    app.include_router(webhook.setup(settings))

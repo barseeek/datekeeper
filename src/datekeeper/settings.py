@@ -10,6 +10,7 @@ class BotSettings(BaseModel):
 class WebHookSettings(BaseModel):
     url: str = Field(..., alias='WEBHOOK_URL')
     secret: str = Field(..., alias='WEBHOOK_SECRET')
+    path: str = Field('/update', alias='WEBHOOK_PATH')
 
 
 class Settings(BaseModel):

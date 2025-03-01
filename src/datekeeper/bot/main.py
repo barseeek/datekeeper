@@ -5,14 +5,14 @@ from datekeeper.bot.routers import greetings
 from datekeeper.settings import Settings
 
 
-async def on_startup(container: AsyncContainer) -> None:
+async def on_startup(container: AsyncContainer):
     settings = await container.get(Settings)
     bot = await container.get(Bot)
-    await bot.set_webhook(f'{settings.webhook.url}', secret_token=settings.webhook.secret)
+    await bot.set_webhook(f'{settings.webhook.url}{settings.webhook.path}', secret_token=settings.webhook.secret)
     print('Webhook is set')
 
 
-async def on_shutdown(container: AsyncContainer) -> None:
+async def on_shutdown(container: AsyncContainer):
     bot = await container.get(Bot)
     await bot.delete_webhook()
     print('Webhook is unset')
